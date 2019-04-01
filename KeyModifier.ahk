@@ -5,13 +5,10 @@
 #NoTrayIcon
 #Persistent
 #Warn
+#NoEnv
 
-; set capslock state off permanently
-;SetCapsLockState, AlwaysOff
-
-RWin::
-	send, {AppsKey}
-return
+SendMode Input
+SetWorkingDir %A_ScriptDir% 
 
 ;Keyboard arrowkeys
 CapsLock & j:: Left
@@ -24,24 +21,32 @@ CapsLock & q:: !F4
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
 
 ;Program launches
-CapsLock & o::outlook()
-CapsLock & e::explorer()
-CapsLock & s::slack()
-CapsLock & c::chrome()
+CapsLock & o:: outlook()
+CapsLock & e:: explorer()
+CapsLock & s:: slack()
+CapsLock & c:: chrome()
+CapsLock & f:: foobar()
 
 ;media
-CapsLock & n::Volume_Down
-CapsLock & m::Volume_Up
+CapsLock & n:: Volume_Down
+CapsLock & m:: Volume_Up
 
 ;general fixes
 $F6::^l
+RWin:: AppsKey
 
 ;kill script
 CapsLock & F4::ExitApp
 
 
-
-
+foobar()
+{
+	IfWinNotExist, ahk_exe foobar2000.exe
+		run foobar2000.exe
+	else
+		WinActivate ahk_exe foobar2000.exe
+	return
+}
 
 chrome() ; !
 {
@@ -84,4 +89,3 @@ explorer()
 		WinActivate ahk_class CabinetWClass
 	Return
 }
-
