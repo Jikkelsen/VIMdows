@@ -1,5 +1,11 @@
 ; Jonas Mikkelsen, Mar2019
 ; Version 1.0
+;
+; Uses capslock as a fifth modifier to provide extra functionality within windows
+;
+; New functions for Winkey and
+;	e - Cycle explorer windows 
+
 
 #SingleInstance force
 #NoTrayIcon
@@ -26,6 +32,9 @@ CapsLock & e:: explorer()
 CapsLock & s:: slack()
 CapsLock & c:: chrome()
 CapsLock & f:: foobar()
+CapsLock & w:: word()
+CapsLock & x:: excel()
+CapsLock & p:: powerpoint()
 
 ;media
 CapsLock & n:: Volume_Down
@@ -38,6 +47,38 @@ RWin:: AppsKey
 ;kill script
 CapsLock & F4::ExitApp
 
+powerpoint()
+{
+	IfWinNotExist, ahk_class PPTFrameClass
+		run POWERPNT.exe
+	GroupAdd, Powerpoints, ahk_class PPTFrameClass
+	if WinActive("ahk_class PPTFrameClass")
+		GroupActivate, Powerpoints, r
+	else
+		WinActivate ahk_class PPTFrameClass
+	Return
+}
+
+excel()
+{
+	IfWinNotExist, ahk_class xlmain
+		run excel.exe
+	else
+		WinActivate ahk_class xlmain
+	return
+}
+
+word()
+{
+	IfWinNotExist, ahk_class OpusApp
+		run winword.exe
+	GroupAdd, Words, ahk_class OpusApp
+	if WinActive("ahk_class OpusApp")
+		GroupActivate, Words, r
+	else
+		WinActivate ahk_class OpusApp
+	Return
+}
 
 foobar()
 {
