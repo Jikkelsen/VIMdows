@@ -8,6 +8,7 @@
 
 
 #SingleInstance force
+#MaxHotkeysPerInterval 200
 #NoTrayIcon
 #Persistent
 #Warn
@@ -35,6 +36,7 @@ CapsLock & f:: foobar()
 CapsLock & w:: word()
 CapsLock & x:: excel()
 CapsLock & p:: powerpoint()
+CapsLock & a:: adobePremiere()
 
 ;media
 CapsLock & n:: Volume_Down
@@ -89,11 +91,11 @@ foobar()
 	return
 }
 
-chrome() ; !
+chrome()
 {
 	IfWinNotExist, ahk_exe chrome.exe
 		run, chrome.exe
-	GroupAdd, Chromes, ahk_class Chrome_WidgetWin_1
+	GroupAdd, Chromes, ahk_exe chrome.exe
 	if WinActive("ahk_exe chrome.exe")
 		GroupActivate, Chromes, r
 	else
@@ -129,4 +131,16 @@ explorer()
 	else
 		WinActivate ahk_class CabinetWClass
 	Return
+}
+
+adobePremiere()
+{
+	IfWinNotExist, ahk_class, EmbeddedWB
+		run, Adobe Premiere Pro.exe
+	GroupAdd, Premieres, ahk_class EmbeddedWB
+	If (winActive("ahk_class EmbeddedWB"))
+		GroupActivate, Premieres, r
+	else
+		WinActivate, ahk_class EmbeddedWB
+	return
 }
