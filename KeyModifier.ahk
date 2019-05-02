@@ -1,18 +1,16 @@
-; Jonas Mikkelsen, Mar2019
+; Jonas Mikkelsen, May2019
 ; Version 1.0
 ;
-; Uses capslock as a fifth modifier to provide extra functionality within windows
+; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
-; New functions for Winkey and
-;	e - Cycle explorer windows 
+;
+;
 
-
-#SingleInstance force
-#MaxHotkeysPerInterval 200
-#NoTrayIcon
-#Persistent
-#Warn
-#NoEnv
+#SingleInstance force		; Cannot have multiple instances of program
+#MaxHotkeysPerInterval 200	; Won't crash if button held down
+#NoTrayIcon					; App not visible in tray
+#Warn						; Debuggin purposese
+#NoEnv						; Avoids checking empty variables to see if they are environment variables
 
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
@@ -23,8 +21,9 @@ CapsLock & k:: Up
 CapsLock & l:: Down
 CapsLock & æ:: Right
 
-;terminate window, shut down
+;terminate window, shut down, restart script
 CapsLock & q:: !F4
+CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
 
 ;Program launches
@@ -39,10 +38,17 @@ CapsLock & p:: powerpoint()
 CapsLock & a:: adobePremiere()
 
 ;media
-CapsLock & n:: Volume_Down
-CapsLock & m:: Volume_Up
+CapsLock & Insert:: Media_Play_Pause
+CapsLock & Home:: Media_Next
+CapsLock & PGUP:: Volume_Up
+CapsLock & Delete:: Media_Stop
+CapsLock & End:: Media_Prev
+CapsLock & PGDN:: Volume_Down
 
-;general fixes
+;Winkey
+CapsLock:: LWin
+
+; Chrome f6 fix, rwin to rclick
 $F6::^l
 RWin:: AppsKey
 
@@ -65,6 +71,9 @@ excel()
 {
 	IfWinNotExist, ahk_class xlmain
 		run excel.exe
+	GroupAdd, Excels, ahk_class xlmain
+	if WinActive("ahk_class xlmain")
+		GroupActivate, Excels, r
 	else
 		WinActivate ahk_class xlmain
 	return
@@ -112,10 +121,13 @@ slack()
 	return
 }
 
-outlook()
+outlook() ; One should never have more than 1 Outlook open
 {
 	IfWinNotExist, ahk_exe outlook.exe
 		run, outlook.exe
+	GroupAdd, Outlooks, ahk_exe outlook.exe
+	if WinActive("ahk_exe outlook.exe")
+		GroupActivate, Outlooks, r
 	else
 		WinActivate, ahk_exe outlook.exe
 	return
@@ -133,7 +145,7 @@ explorer()
 	Return
 }
 
-adobePremiere()
+adobePremiere() ; TODO: re-write to go through all adobe programs
 {
 	IfWinNotExist, ahk_class, EmbeddedWB
 		run, Adobe Premiere Pro.exe
