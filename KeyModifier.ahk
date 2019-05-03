@@ -36,6 +36,8 @@ CapsLock & w:: word()
 CapsLock & x:: excel()
 CapsLock & p:: powerpoint()
 CapsLock & a:: adobePremiere()
+CapsLock & i:: edge()
+
 
 ;media
 CapsLock & Insert:: Media_Play_Pause
@@ -154,5 +156,17 @@ adobePremiere() ; TODO: re-write to go through all adobe programs
 		GroupActivate, Premieres, r
 	else
 		WinActivate, ahk_class EmbeddedWB
+	return
+}
+
+edge() 
+{
+	IfWinNotExist, ahk_class, ApplicationFrameWindow
+		run, ApplicationFrameHost.exe
+	GroupAdd, Edges, ahk_class ApplicationFrameWindow
+	If (winActive("ahk_class ApplicationFrameWindow"))
+		GroupActivate, Edges, r
+	else
+		WinActivate, ahk_class ApplicationFrameWindow
 	return
 }
