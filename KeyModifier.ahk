@@ -16,10 +16,10 @@ SendMode Input
 SetWorkingDir %A_ScriptDir% 
 
 ;Keyboard arrowkeys
-CapsLock & j:: Left
+CapsLock & h:: Left
+CapsLock & j:: Down
 CapsLock & k:: Up
-CapsLock & l:: Down
-CapsLock & æ:: Right
+CapsLock & l:: Right
 
 ;terminate window, shut down, restart script
 CapsLock & q:: !F4
@@ -31,13 +31,22 @@ CapsLock & o:: outlook()
 CapsLock & e:: explorer()
 CapsLock & s:: slack()
 CapsLock & c:: chrome()
-CapsLock & f:: foobar()
+;CapsLock & f:: foobar()
 CapsLock & w:: word()
 CapsLock & x:: excel()
 CapsLock & p:: powerpoint()
 CapsLock & a:: adobePremiere()
 CapsLock & i:: edge()
 
+;HotStrings
+::,d::
+FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 9/1/2005 3:53 PM
+SendInput %CurrentDateTime%
+return
+
+::,sig::
+Send, %A_UserName%
+return
 
 ;media
 CapsLock & Insert:: Media_Play_Pause
@@ -46,9 +55,6 @@ CapsLock & PGUP:: Volume_Up
 CapsLock & Delete:: Media_Stop
 CapsLock & End:: Media_Prev
 CapsLock & PGDN:: Volume_Down
-
-;Winkey
-CapsLock:: LWin
 
 ; Chrome f6 fix, rwin to rclick
 $F6::^l
