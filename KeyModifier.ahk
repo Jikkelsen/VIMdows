@@ -11,6 +11,7 @@
 #NoTrayIcon					; App not visible in tray
 #Warn						; Debuggin purposese
 #NoEnv						; Avoids checking empty variables to see if they are environment variables
+#Persistent					; Script will stay running after auto-execute section completes 
 
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
@@ -21,10 +22,11 @@ CapsLock & j:: Down
 CapsLock & k:: Up
 CapsLock & l:: Right
 
-;terminate window, shut down, restart script
+;terminate window, shut down, restart script, delete key
 CapsLock & q:: !F4
 CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
+CapsLock & d:: Delete
 
 ;Program launches
 CapsLock & o:: outlook()
@@ -39,13 +41,27 @@ CapsLock & a:: adobePremiere()
 CapsLock & i:: edge()
 
 ;HotStrings
+::,dt::
+FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 06-11-2019 04:59
+SendInput %CurrentDateTime%
+return
+
 ::,d::
-FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 9/1/2005 3:53 PM
+FormatTime, CurrentDateTime,, dd-MM-yyyy ; It will look like 06-11-2019
+SendInput %CurrentDateTime%
+return
+
+::,t::
+FormatTime, CurrentDateTime,, hh:mm  ; It will look like 9/1/2005 04:59
 SendInput %CurrentDateTime%
 return
 
 ::,sig::
 Send, %A_UserName%
+return
+
+::,a::
+Send, autohotkey
 return
 
 ;media
@@ -59,6 +75,16 @@ CapsLock & PGDN:: Volume_Down
 ; Chrome f6 fix, rwin to rclick
 $F6::^l
 RWin:: AppsKey
+
+; Linux/Mac like menu open for both alt and caps
+CapsLock & Space:: 
+Send {LWin}
+return
+
+LAlt & Space::
+Send {LWin}
+return
+
 
 ;kill script
 CapsLock & F4::ExitApp
@@ -120,6 +146,7 @@ chrome()
 	Return
 }
 
+
 slack()
 {
 	IfWinNotExist, ahk_exe slack.exe
@@ -127,6 +154,16 @@ slack()
 	else
 		WinActivate, ahk_exe slack.exe
 	return
+}
+
+; experiemental
+skype()
+{
+	IfWinNotExist, ahk_pid 9456
+			run, ahk_pid 9456
+		else
+				WinActivate, ahk_pid 9456
+		return
 }
 
 outlook() ; One should never have more than 1 Outlook open
