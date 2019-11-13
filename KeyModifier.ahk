@@ -1,5 +1,5 @@
 ; Jonas Mikkelsen, November 2019
-; Version 1.0
+; Version 2.0
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
@@ -59,7 +59,7 @@ SendInput %CurrentDateTime%
 return
 
 ::,t::
-FormatTime, CurrentDateTime,, hh:mm  ; It will look like 9/1/2005 04:59
+FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
 SendInput %CurrentDateTime%
 return
 
@@ -67,8 +67,12 @@ return
 Send, %A_UserName%
 return
 
-::,a::
+::,ahk::
 Send, autohotkey
+return
+
+::,tmg::
+Send, The Marketing Guy
 return
 
 ;media
