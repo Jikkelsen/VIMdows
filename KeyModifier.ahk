@@ -1,4 +1,4 @@
-; Jonas Mikkelsen, May2019
+; Jonas Mikkelsen, November 2019
 ; Version 1.0
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
@@ -16,29 +16,36 @@
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
 
-;Keyboard arrowkeys
-CapsLock & h:: Left
-CapsLock & j:: Down
-CapsLock & k:: Up
-CapsLock & l:: Right
-
 ;terminate window, shut down, restart script, delete key
 CapsLock & q:: !F4
 CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
 CapsLock & d:: Delete
 
+;Keyboard arrowkeys
+CapsLock & h:: Left
+CapsLock & j:: Down
+CapsLock & k:: Up
+CapsLock & l:: Right
+
+;Vimlike bindings
+CapsLock & A:: Send {end}
+CapsLock & X:: Send {delete}
+CapsLock & I:: Send {home}
+
 ;Program launches
 CapsLock & o:: outlook()
 CapsLock & e:: explorer()
 CapsLock & s:: slack()
 CapsLock & c:: chrome()
-;CapsLock & f:: foobar()
 CapsLock & w:: word()
-CapsLock & x:: excel()
 CapsLock & p:: powerpoint()
-CapsLock & a:: adobePremiere()
-CapsLock & i:: edge()
+
+;Deprecated
+;CapsLock & i:: edge()
+;CapsLock & x:: excel()
+;CapsLock & f:: foobar()
+;CapsLock & a:: adobePremiere()
 
 ;HotStrings
 ::,dt::
