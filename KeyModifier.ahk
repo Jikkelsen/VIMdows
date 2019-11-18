@@ -29,9 +29,9 @@ CapsLock & k:: Up
 CapsLock & l:: Right
 
 ;Vimlike bindings
-CapsLock & A:: Send {end}
-CapsLock & X:: Send {delete}
-CapsLock & I:: Send {home}
+CapsLock & a:: Send {end}
+CapsLock & x:: Send {delete}
+CapsLock & i:: Send {home}
 
 ;Program launches
 CapsLock & o:: outlook()
@@ -46,34 +46,6 @@ CapsLock & p:: powerpoint()
 ;CapsLock & x:: excel()
 ;CapsLock & f:: foobar()
 ;CapsLock & a:: adobePremiere()
-
-;HotStrings
-::,dt::
-FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 06-11-2019 04:59
-SendInput %CurrentDateTime%
-return
-
-::,d::
-FormatTime, CurrentDateTime,, dd-MM-yyyy ; It will look like 06-11-2019
-SendInput %CurrentDateTime%
-return
-
-::,t::
-FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
-SendInput %CurrentDateTime%
-return
-
-::,sig::
-Send, %A_UserName%
-return
-
-::,ahk::
-Send, autohotkey
-return
-
-::,tmg::
-Send, The Marketing Guy
-return
 
 ;media
 CapsLock & Insert:: Media_Play_Pause
@@ -96,6 +68,45 @@ LAlt & Space::
 Send {LWin}
 return
 
+;HotStrings
+::,dt::
+FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 06-11-2019 04:59
+SendInput %CurrentDateTime%
+return
+
+::,d::
+FormatTime, CurrentDateTime,, dd-MM-yyyy ; It will look like 06-11-2019
+SendInput %CurrentDateTime%
+return
+
+::,t::
+FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
+SendInput %CurrentDateTime%
+return
+
+::,sig::
+Send, %A_UserName%
+return
+
+::,ahk::autohotkey
+
+::,tmg::The Marketing Guy 
+
+::,m::
+Send, %A_UserName%@Themarketingguy.dk
+return
+
+; right arrow
+::,ra:: {U+2192}
+
+; left arrow
+::,la:: {U+2190}
+
+; up arrow
+::,ua:: {U+2191}
+
+; down arrow
+::,da:: {U+2193}
 
 ;kill script
 CapsLock & F4::ExitApp
