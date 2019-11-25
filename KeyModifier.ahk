@@ -35,7 +35,6 @@ CapsLock & i:: Send {home}
 ;WindowsLike bindings
 CapsLock & e:: Send {end}
 CapsLock & d:: Send {delete}
-CapsLock & h:: Send {home}
 
 ;Program launches
 CapsLock & o:: outlook()
