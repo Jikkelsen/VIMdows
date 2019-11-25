@@ -1,5 +1,5 @@
 ; Jonas Mikkelsen, November 2019
-; Version 2.0
+; Version 3.0
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
@@ -20,7 +20,6 @@ SetWorkingDir %A_ScriptDir%
 CapsLock & q:: !F4
 CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
-CapsLock & d:: Delete
 
 ;Keyboard arrowkeys
 CapsLock & h:: Left
@@ -33,9 +32,13 @@ CapsLock & a:: Send {end}
 CapsLock & x:: Send {delete}
 CapsLock & i:: Send {home}
 
+;WindowsLike bindings
+CapsLock & e:: Send {end}
+CapsLock & d:: Send {delete}
+CapsLock & h:: Send {home}
+
 ;Program launches
 CapsLock & o:: outlook()
-CapsLock & e:: explorer()
 CapsLock & s:: slack()
 CapsLock & c:: chrome()
 CapsLock & w:: word()
@@ -46,6 +49,7 @@ CapsLock & p:: powerpoint()
 ;CapsLock & x:: excel()
 ;CapsLock & f:: foobar()
 ;CapsLock & a:: adobePremiere()
+;CapsLock & e:: explorer()
 
 ;media
 CapsLock & Insert:: Media_Play_Pause
@@ -64,10 +68,6 @@ CapsLock & Space::
 Send {LWin}
 return
 
-LAlt & Space::
-Send {LWin}
-return
-
 ;HotStrings
 ::,dt::
 FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 06-11-2019 04:59
@@ -82,6 +82,12 @@ return
 ::,t::
 FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
 SendInput %CurrentDateTime%
+return
+
+::,sd::
+::,fb::
+FormatTime, CurrentDateTime,, ddMMyy ; It will look like 06-11-2019
+SendInput %CurrentDateTime% 
 return
 
 ::,sig::
@@ -103,13 +109,27 @@ return
 ::,la:: {U+2190}
 
 ; up arrow
+::,up:: {U+2191}
 ::,ua:: {U+2191}
 
 ; down arrow
 ::,da:: {U+2193}
 
+; Budget calculator 
+:*B0:,bud:: 
+Input, name, V, {Enter}{Tab}{Space}, 	; Same end keys as regular Hotstrings
+Base	:=	3500
+Days 	:= 	5
+Amount	:=	name
+Value 	:=  Round(Base / Days / Amount, 2) ; Round to two decimal places
+numberOfBackSpaces:=strlen(name) + 5 ; Deletes ",bud[n]" before inserting
+Send, {Backspace %numberOfBackSpaces%}%Value%
+return
+
+
 ;kill script
 CapsLock & F4::ExitApp
+
 
 powerpoint()
 {
