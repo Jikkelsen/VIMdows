@@ -1,5 +1,5 @@
 ; Jonas Mikkelsen, November 2019
-; Version 3.0
+; Version 2.0
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
@@ -33,7 +33,6 @@ CapsLock & x:: Send {delete}
 CapsLock & i:: Send {home}
 
 ;WindowsLike bindings
-CapsLock & e:: Send {end}
 CapsLock & d:: Send {delete}
 
 ;Program launches
@@ -83,36 +82,35 @@ FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
 SendInput %CurrentDateTime%
 return
 
-::,sd::
-::,fb::
+:*:,sd::
+:*:,fb::
 FormatTime, CurrentDateTime,, ddMMyy ; It will look like 06-11-2019
 SendInput %CurrentDateTime% 
 return
 
-::,sig::
+:*:,sig::
 Send, %A_UserName%
 return
 
-::,ahk::autohotkey
+:*:,ahk::autohotkey
+:*:,tmg::The Marketing Guy 
 
-::,tmg::The Marketing Guy 
-
-::,m::
+:*:,m::
 Send, %A_UserName%@Themarketingguy.dk
 return
 
 ; right arrow
-::,ra:: {U+2192}
+:*:,ra::{U+2192}
 
 ; left arrow
-::,la:: {U+2190}
+:*:,la::{U+2190}
 
 ; up arrow
-::,up:: {U+2191}
-::,ua:: {U+2191}
+:*:,up::{U+2191}
+:*:,ua::{U+2191}
 
 ; down arrow
-::,da:: {U+2193}
+:*:,da::{U+2193}
 
 ; Budget calculator 
 :*B0:,bud:: 
@@ -125,6 +123,29 @@ numberOfBackSpaces:=strlen(name) + 5 ; Deletes ",bud[n]" before inserting
 Send, {Backspace %numberOfBackSpaces%}%Value%
 return
 
+; UTM
+:*:,utm::utm_source=Facebook&utm_medium=CPM&utm_campaign=[NAME]
+
+;Webshops
+:*:,webshop::
+ToolTip, Campaign name `nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value / ROAS`nAdd To Carts`nPurchases`nCost per Add To Cart`nCost per Purchase
+Sleep, 5000
+ToolTip
+return
+
+;Apps
+:*:,apps::
+ToolTip, Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nApp Purchase Value / Reactions`nApp Actions`nApp Installs`nCost per App Actions`nCost per Ap Install
+Sleep, 5000
+ToolTip
+return
+
+;Leads
+:*:,leads::
+ToolTip,Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value`nPost reactions`nLeads`nCost per Post Reaction`nCost per Lead
+Sleep, 5000
+ToolTip
+return
 
 ;kill script
 CapsLock & F4::ExitApp
