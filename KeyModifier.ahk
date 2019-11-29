@@ -15,10 +15,16 @@
 
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
+SetCapsLockState, Off
+
+; Left Side Enter
+CapsLock:: Send {Enter}
+
+; Enable Caps
+CapsLock & LControl:: SetCapsLockState % !GetKeyState("CapsLock", "T")
 
 ;terminate window, shut down, restart script, delete key
 CapsLock & q:: !F4
-CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
 
 ;Keyboard arrowkeys
@@ -92,8 +98,8 @@ return
 Send, %A_UserName%
 return
 
-:*:,ahk::autohotkey
-:*:,tmg::The Marketing Guy 
+:*:ahk::autohotkey
+:*:tmg::The Marketing Guy 
 
 :*:,m::
 Send, %A_UserName%@Themarketingguy.dk
@@ -147,9 +153,19 @@ Sleep, 5000
 ToolTip
 return
 
-;kill script
-CapsLock & F4::ExitApp
+;Restart script
+CapsLock & 0:: 
+MsgBox, 65, Restarting script, The script will restart when you click OK
+IfMsgBox OK
+	Reload
+return
 
+;Kill script
+CapsLock & F4::
+MsgBox, 17, Killing Script, The script will be killed when you click OK
+IfMsgBox OK
+	ExitApp
+return
 
 powerpoint()
 {
