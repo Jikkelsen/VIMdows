@@ -1,5 +1,5 @@
 ; Jonas Mikkelsen, November 2019
-; Version 3.0
+; Version 2.1
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
@@ -15,10 +15,18 @@
 
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
+SetCapsLockState, Off
+
+; ######################################################################## Functionality ########################################################################
+
+; Left Side Enter
+CapsLock:: Send {Enter}
+
+; Enable Caps
+CapsLock & LControl:: SetCapsLockState % !GetKeyState("CapsLock", "T")
 
 ;terminate window, shut down, restart script, delete key
 CapsLock & q:: !F4
-CapsLock & 0:: Reload
 CapsLock & Escape:: ControlSend, , !{F4}, ahk_class Progman ; shutdown dialogue
 
 ;Keyboard arrowkeys
@@ -33,18 +41,16 @@ CapsLock & x:: Send {delete}
 CapsLock & i:: Send {home}
 
 ;WindowsLike bindings
-CapsLock & e:: Send {end}
 CapsLock & d:: Send {delete}
 
 ;Program launches
-CapsLock & c:: run, chrome.exe
 CapsLock & o:: outlook()
 CapsLock & s:: slack()
+CapsLock & c:: chrome()
 CapsLock & w:: word()
 CapsLock & p:: powerpoint()
 
 ;Deprecated
-;CapsLock & c:: chrome()
 ;CapsLock & i:: edge()
 ;CapsLock & x:: excel()
 ;CapsLock & f:: foobar()
@@ -68,7 +74,14 @@ CapsLock & Space::
 Send {LWin}
 return
 
-;HotStrings
+; Open Powershell
+LWin & Enter:: run, powershell.exe
+
+; Get some help
+; CapsLock & {+}:: Helper()
+
+; ######################################################################## HotStrings ########################################################################
+
 ::,dt::
 FormatTime, CurrentDateTime,, dd-MM-yyyy hh:mm  ; It will look like 06-11-2019 04:59
 SendInput %CurrentDateTime%
@@ -84,36 +97,45 @@ FormatTime, CurrentDateTime,, hh:mm  ; It will look like 04:59
 SendInput %CurrentDateTime%
 return
 
-::,sd::
-::,fb::
+:*:,sd::
+:*:,fb::
 FormatTime, CurrentDateTime,, ddMMyy ; It will look like 06-11-2019
 SendInput %CurrentDateTime% 
 return
 
-::,sig::
+:*:,sig::
 Send, %A_UserName%
 return
 
-::,ahk::autohotkey
+:*:ahk::autohotkey
+:*:tmg::The Marketing Guy 
 
-::,tmg::The Marketing Guy 
-
-::,m::
+:*:,m::
 Send, %A_UserName%@Themarketingguy.dk
 return
 
 ; right arrow
-::,ra:: {U+2192}
+:*:,ra::{U+2192}
 
 ; left arrow
-::,la:: {U+2190}
+:*:,la::{U+2190}
 
 ; up arrow
-::,up:: {U+2191}
-::,ua:: {U+2191}
+:*:,up::{U+2191}
+:*:,ua::{U+2191}
 
 ; down arrow
-::,da:: {U+2193}
+:*:,da::{U+2193}
+
+; address 
+:*:,addr::Frederiksberggade 15, 3 sal, 1459 København
+
+;AI custom
+::eml::ahmadibrahim41@hotmail.com
+::emll::ai@themarketingguy.dk
+::nvn::Ahmad Ibrahim
+::addr::Frederiksberggade 15, 3 sal, 1459 København
+::nrr::{+}45 28 34 88 50
 
 ; Budget calculator 
 :*B0:,bud:: 
@@ -126,10 +148,45 @@ numberOfBackSpaces:=strlen(name) + 5 ; Deletes ",bud[n]" before inserting
 Send, {Backspace %numberOfBackSpaces%}%Value%
 return
 
+; UTM
+:*:,utm::utm_source=Facebook&utm_medium=CPM&utm_campaign=[NAME]
 
-;kill script
-CapsLock & F4::ExitApp
+;Webshops
+:*:,webshop::
+ToolTip, Campaign name `nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value / ROAS`nAdd To Carts`nPurchases`nCost per Add To Cart`nCost per Purchase
+Sleep, 5000
+ToolTip
+return
 
+;Apps
+:*:,apps::
+ToolTip, Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nApp Purchase Value / Reactions`nApp Actions`nApp Installs`nCost per App Actions`nCost per Ap Install
+Sleep, 5000
+ToolTip
+return
+
+;Leads
+:*:,leads::
+ToolTip,Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value`nPost reactions`nLeads`nCost per Post Reaction`nCost per Lead
+Sleep, 5000
+ToolTip
+return
+
+;Restart script
+CapsLock & 0:: 
+MsgBox, 65, Restarting script, The script will restart when you click OK
+IfMsgBox OK
+	Reload
+return
+
+;Kill script
+CapsLock & F4::
+MsgBox, 17, Killing Script, The script will be killed when you click OK
+IfMsgBox OK
+	ExitApp
+return
+
+; ######################################################################## Functions ########################################################################
 
 powerpoint()
 {
@@ -253,5 +310,11 @@ edge()
 		GroupActivate, Edges, r
 	else
 		WinActivate, ahk_class ApplicationFrameWindow
+	return
+}
+
+Helper()
+{
+	MsgBox, 64, These are the commands available , aksjldhf¨`nasdf`nasd`nf`nasdf`nas`ndf`nasdf`na`nsd`nfas`ndf
 	return
 }
