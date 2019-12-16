@@ -1,9 +1,8 @@
-; Jonas Mikkelsen, November 2019
-; Version 2.1
+; Jonas Vollhaase Mikkelsen, December 2019
+; Contact: JM@TheMarketingGuy.dk
+; Version 3
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
-;
-;
 ;
 
 #SingleInstance force		; Cannot have multiple instances of program
@@ -23,7 +22,7 @@ SetCapsLockState, Off
 CapsLock:: Send {Enter}
 
 ; Enable Caps
-CapsLock & LControl:: SetCapsLockState % !GetKeyState("CapsLock", "T")
+CapsLock & RControl:: SetCapsLockState % !GetKeyState("CapsLock", "T")
 
 ;terminate window, shut down, restart script, delete key
 CapsLock & q:: !F4
@@ -107,8 +106,8 @@ return
 Send, %A_UserName%
 return
 
-:*:ahk::autohotkey
-:*:tmg::The Marketing Guy 
+:*C:ahk::autohotkey
+:*C:tmg::The Marketing Guy 
 
 :*:,m::
 Send, %A_UserName%@Themarketingguy.dk
