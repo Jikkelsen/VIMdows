@@ -14,7 +14,7 @@
 
 SendMode Input
 SetWorkingDir %A_ScriptDir% 
-SetCapsLockState, Off
+SetCapsLockState, AlwaysOff
 
 ; ######################################################################## Functionality ########################################################################
 
@@ -153,21 +153,21 @@ return
 ;Webshops
 :*:,webshop::
 ToolTip, Campaign name `nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value / ROAS`nAdd To Carts`nPurchases`nCost per Add To Cart`nCost per Purchase
-Sleep, 5000
+Sleep, 10000
 ToolTip
 return
 
 ;Apps
 :*:,apps::
 ToolTip, Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nApp Purchase Value / Reactions`nApp Actions`nApp Installs`nCost per App Actions`nCost per Ap Install
-Sleep, 5000
+Sleep, 10000
 ToolTip
 return
 
 ;Leads
 :*:,leads::
 ToolTip,Campaign name`nAd set name`nReach`nFrequency`nImpressions`nAmount Spend`nLink Clicks`nCPC (link)`nWebsite Purchase Value`nPost reactions`nLeads`nCost per Post Reaction`nCost per Lead
-Sleep, 5000
+Sleep, 10000
 ToolTip
 return
 
