@@ -129,6 +129,9 @@ return
 ; address 
 :*:,addr::Frederiksberggade 15, 3 sal, 1459 København
 
+; CVR
+:*:,cvr::37814059
+
 ;AI custom
 ::eml::ahmadibrahim41@hotmail.com
 ::emll::ai@themarketingguy.dk
