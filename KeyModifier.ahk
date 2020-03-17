@@ -1,13 +1,13 @@
-; Jonas Vollhaase Mikkelsen, December 2019
+; Jonas Vollhaase Mikkelsen, March 2020
 ; Contact: JM@TheMarketingGuy.dk
-; Version 3
+; Version 4
 ;
 ; Use capslock as a fifth modifier to provide extra functionality within windows
 ;
 
 #SingleInstance force		; Cannot have multiple instances of program
 #MaxHotkeysPerInterval 200	; Won't crash if button held down
-#NoTrayIcon					; App not visible in tray
+;#NoTrayIcon					; App not visible in tray
 #Warn						; Debuggin purposese
 #NoEnv						; Avoids checking empty variables to see if they are environment variables
 #Persistent					; Script will stay running after auto-execute section completes 
@@ -43,11 +43,6 @@ CapsLock & i:: Send {home}
 CapsLock & d:: Send {delete}
 
 ;Program launches
-CapsLock & o:: outlook()
-CapsLock & s:: slack()
-CapsLock & c:: chrome()
-CapsLock & w:: word()
-CapsLock & p:: powerpoint()
 
 ;Deprecated
 ;CapsLock & i:: edge()
@@ -55,6 +50,11 @@ CapsLock & p:: powerpoint()
 ;CapsLock & f:: foobar()
 ;CapsLock & a:: adobePremiere()
 ;CapsLock & e:: explorer()
+;CapsLock & o:: outlook()
+;CapsLock & s:: slack()
+;CapsLock & c:: chrome()
+;CapsLock & w:: word()
+;CapsLock & p:: powerpoint()
 
 ;media
 CapsLock & Insert:: Media_Play_Pause
@@ -68,30 +68,20 @@ CapsLock & PGDN:: Volume_Down
 $F6::^l
 RWin:: AppsKey
 
-; Linux/Mac like menu open for both alt and caps
-CapsLock & Space:: 
-Send {LWin}
-return
-
 ; Open Powershell
 LWin & Enter:: run, powershell.exe
 
 ; Get some help
 ; CapsLock & {+}:: Helper()
 
-
-;Restart script
-CapsLock & 0:: 
-MsgBox, 65, Restarting script, The script will restart when you click OK
-IfMsgBox OK
-	Reload
-return
-
-;Kill script
-CapsLock & F4::
-MsgBox, 17, Killing Script, The script will be killed when you click OK
-IfMsgBox OK
+;Admin menu
+CapsLock & 0::
+MsgBox, 50, Restart or kill CapsClicker, Press "Abort" to kill CapsClicker`, `nPress "Retry" to restart CapsClicker`nPress "Ignore" to do nothing
+IfMsgBox Abort
 	ExitApp
+
+IfMsgBox Retry
+	Reload
 return
 
 ; ######################################################################## Functions ########################################################################
@@ -223,6 +213,6 @@ edge()
 
 Helper()
 {
-	MsgBox, 64, These are the commands available , aksjldhf¨`nasdf`nasd`nf`nasdf`nas`ndf`nasdf`na`nsd`nfas`ndf
+	MsgBox, 64, These are the commands available , aksjldhfɠnasdf`nasd`nf`nasdf`nas`ndf`nasdf`na`nsd`nfas`ndf
 	return
 }
