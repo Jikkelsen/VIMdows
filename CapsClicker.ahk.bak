@@ -8,7 +8,6 @@
 #SingleInstance force		; Cannot have multiple instances of program
 #MaxHotkeysPerInterval 200	; Won't crash if button held down
 ;#NoTrayIcon					; App not visible in tray
-#Warn						; Debuggin purposese
 #NoEnv						; Avoids checking empty variables to see if they are environment variables
 #Persistent					; Script will stay running after auto-execute section completes 
 
@@ -33,6 +32,8 @@ CapsLock & h:: Left
 CapsLock & j:: Down
 CapsLock & k:: Up
 CapsLock & l:: Right
+
+
 
 ;Vimlike bindings
 CapsLock & a:: Send {end}
@@ -76,7 +77,7 @@ LWin & Enter:: run, powershell.exe
 
 ;Admin menu
 CapsLock & 0::
-MsgBox, 50, Restart or kill CapsClicker, Press "Abort" to kill CapsClicker`, `nPress "Retry" to restart CapsClicker`nPress "Ignore" to do nothing
+MsgBox, 50, Restart or kill %A_ScriptName%, Press "Abort" to kill %A_ScriptName%`, `nPress "Retry" to restart %A_ScriptName%`nPress "Ignore" to do nothing
 IfMsgBox Abort
 	ExitApp
 
@@ -85,6 +86,22 @@ IfMsgBox Retry
 return
 
 ; ######################################################################## Functions ########################################################################
+
+#IfWinActive, ahk_class CabinetWClass
+;~ Backspace::
+   ;~ ControlGet renamestatus,Visible,,Edit1,A
+   ;~ ControlGetFocus focussed, A
+   ;~ if(renamestatus!=1&&(focussed=”DirectUIHWND3″||focussed=SysTreeView321))
+   ;~ {
+    ;~ SendInput {Alt Down}{Up}{Alt Up}
+      ;~ Send {Backspace}
+  ;~ }else{
+  ;~ }
+;~ #IfWinActive
+CapsLock & h:: !Left
+CapsLock & l:: Enter
+
+; ######################################################################## Deprecated KKKKKKKKFunctions ########################################################################
 
 powerpoint()
 {
